@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.blog.mapper.ArticleCategoryMapper">
+    
+    <resultMap type="ArticleCategory" id="ArticleCategoryResult">
+        <result property="cdArticleCategory"    column="cd_article_category"    />
+        <result property="dsArticleCategory"    column="ds_article_category"    />
+        <result property="dtRecord"    column="dt_record"    />
+        <result property="dtDeactivated"    column="dt_deactivated"    />
+    </resultMap>
+
+    <sql id="selectArticleCategoryVo">
+        select cd_article_category, ds_article_category, dt_record, dt_deactivated from ARTICLE_CATEGORY
+    </sql>
+
+    <select id="selectArticleCategoryList" parameterType="ArticleCategory" resultMap="ArticleCategoryResult">
+        <include refid="selectArticleCategoryVo"/>
+        <where>  
+            <if test="dsArticleCategory != null  and dsArticleCategory != ''"> and ds_article_category = #{dsArticleCategory}</if>
+            <if test="dtRecord != null "> and dt_record = #{dtRecord}</if>
+            <if test="dtDeactivated != null "> and dt_deactivated = #{dtDeactivated}</if>
+        </where>
+    </select>
+    
+    <select id="selectArticleCategoryByCdArticleCategory" parameterType="Long" resultMap="ArticleCategoryResult">
+        <include refid="selectArticleCategoryVo"/>
+        where cd_article_category = #{cdArticleCategory}
+    </select>
+
+    <insert id="insertArticleCategory" parameterType="ArticleCategory" useGeneratedKeys="true" keyProperty="cdArticleCategory">
+        insert into ARTICLE_CATEGORY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dsArticleCategory != null">ds_article_category,</if>
+            <if test="dtRecord != null">dt_record,</if>
+            <if test="dtDeactivated != null">dt_deactivated,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dsArticleCategory != null">#{dsArticleCategory},</if>
+            <if test="dtRecord != null">#{dtRecord},</if>
+            <if test="dtDeactivated != null">#{dtDeactivated},</if>
+         </trim>
+    </insert>
+
+    <update id="updateArticleCategory" parameterType="ArticleCategory">
+        update ARTICLE_CATEGORY
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dsArticleCategory != null">ds_article_category = #{dsArticleCategory},</if>
+            <if test="dtRecord != null">dt_record = #{dtRecord},</if>
+            <if test="dtDeactivated != null">dt_deactivated = #{dtDeactivated},</if>
+        </trim>
+        where cd_article_category = #{cdArticleCategory}
+    </update>
+
+    <delete id="deleteArticleCategoryByCdArticleCategory" parameterType="Long">
+        delete from ARTICLE_CATEGORY where cd_article_category = #{cdArticleCategory}
+    </delete>
+
+    <delete id="deleteArticleCategoryByCdArticleCategorys" parameterType="String">
+        delete from ARTICLE_CATEGORY where cd_article_category in 
+        <foreach item="cdArticleCategory" collection="array" open="(" separator="," close=")">
+            #{cdArticleCategory}
+        </foreach>
+    </delete>
+</mapper>

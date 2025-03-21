@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.blog.mapper.ArticleMapper">
+    
+    <resultMap type="Article" id="ARTICLEResult">
+        <result property="cdArtcile"    column="cd_artcile"    />
+        <result property="dsArticle"    column="ds_article"    />
+        <result property="dsArticleContent"    column="ds_article_content"    />
+        <result property="dsCoverImgUrl"    column="ds_cover_img_url"    />
+        <result property="dtRecord"    column="dt_record"    />
+        <result property="dtDeactivated"    column="dt_deactivated"    />
+    </resultMap>
+
+    <sql id="selectARTICLEVo">
+        select cd_artcile, ds_article, ds_article_content, ds_cover_img_url, dt_record, dt_deactivated from ARTICLE
+    </sql>
+
+    <select id="selectARTICLEList" parameterType="Article" resultMap="ARTICLEResult">
+        <include refid="selectARTICLEVo"/>
+        <where>  
+            <if test="dsArticle != null  and dsArticle != ''"> and ds_article = #{dsArticle}</if>
+            <if test="dsArticleContent != null  and dsArticleContent != ''"> and ds_article_content = #{dsArticleContent}</if>
+            <if test="dsCoverImgUrl != null  and dsCoverImgUrl != ''"> and ds_cover_img_url = #{dsCoverImgUrl}</if>
+            <if test="dtRecord != null "> and dt_record = #{dtRecord}</if>
+            <if test="dtDeactivated != null "> and dt_deactivated = #{dtDeactivated}</if>
+        </where>
+    </select>
+    
+    <select id="selectARTICLEByCdArtcile" parameterType="Long" resultMap="ARTICLEResult">
+        <include refid="selectARTICLEVo"/>
+        where cd_artcile = #{cdArtcile}
+    </select>
+
+    <insert id="insertARTICLE" parameterType="Article" useGeneratedKeys="true" keyProperty="cdArtcile">
+        insert into ARTICLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dsArticle != null and dsArticle != ''">ds_article,</if>
+            <if test="dsArticleContent != null and dsArticleContent != ''">ds_article_content,</if>
+            <if test="dsCoverImgUrl != null">ds_cover_img_url,</if>
+            <if test="dtRecord != null">dt_record,</if>
+            <if test="dtDeactivated != null">dt_deactivated,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dsArticle != null and dsArticle != ''">#{dsArticle},</if>
+            <if test="dsArticleContent != null and dsArticleContent != ''">#{dsArticleContent},</if>
+            <if test="dsCoverImgUrl != null">#{dsCoverImgUrl},</if>
+            <if test="dtRecord != null">#{dtRecord},</if>
+            <if test="dtDeactivated != null">#{dtDeactivated},</if>
+         </trim>
+    </insert>
+
+    <update id="updateARTICLE" parameterType="Article">
+        update ARTICLE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dsArticle != null and dsArticle != ''">ds_article = #{dsArticle},</if>
+            <if test="dsArticleContent != null and dsArticleContent != ''">ds_article_content = #{dsArticleContent},</if>
+            <if test="dsCoverImgUrl != null">ds_cover_img_url = #{dsCoverImgUrl},</if>
+            <if test="dtRecord != null">dt_record = #{dtRecord},</if>
+            <if test="dtDeactivated != null">dt_deactivated = #{dtDeactivated},</if>
+        </trim>
+        where cd_artcile = #{cdArtcile}
+    </update>
+
+    <delete id="deleteARTICLEByCdArtcile" parameterType="Long">
+        delete from ARTICLE where cd_artcile = #{cdArtcile}
+    </delete>
+
+    <delete id="deleteARTICLEByCdArtciles" parameterType="String">
+        delete from ARTICLE where cd_artcile in 
+        <foreach item="cdArtcile" collection="array" open="(" separator="," close=")">
+            #{cdArtcile}
+        </foreach>
+    </delete>
+</mapper>
