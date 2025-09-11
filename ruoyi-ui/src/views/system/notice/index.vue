@@ -156,6 +156,17 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="内容">
+              <!--
+              <editor :value="form.noticeContent"
+                    @input="form.noticeContent = $event"
+                    :min-height="192" />
+              <editor v-model="form.noticeContent" />
+              -model 实际上是两个属性的简性
+              <editor
+                :value="form.noticeContent"
+                @input="form.noticeContent = $event"
+              />
+              -->
               <editor v-model="form.noticeContent" :min-height="192"/>
             </el-form-item>
           </el-col>
@@ -269,6 +280,7 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
+      /*good*/
       this.reset();
       const noticeId = row.noticeId || this.ids
       getNotice(noticeId).then(response => {

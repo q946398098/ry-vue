@@ -58,6 +58,10 @@ export default {
       default: "url",
     }
   },
+  created() {
+    console.log('created');
+    console.log(this.value)
+  },
   data() {
     return {
       uploadUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传的图片服务器地址
@@ -105,6 +109,7 @@ export default {
   watch: {
     value: {
       handler(val) {
+        // console.log('props  value changed')
         if (val !== this.currentValue) {
           this.currentValue = val === null ? "" : val;
           if (this.Quill) {
@@ -142,6 +147,8 @@ export default {
         const text = this.Quill.getText();
         const quill = this.Quill;
         this.currentValue = html;
+        /*v-model 绑定的 @input 事件*/
+        // console.log('change parent value')
         this.$emit("input", html);
         this.$emit("on-change", { html, text, quill });
       });
