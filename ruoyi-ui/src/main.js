@@ -90,15 +90,16 @@ Vue.use(Element, {
 })
 
 Vue.config.productionTip = false
+
+let a  ={"test_myplugin":"bbbb"}
 Vue.use(myPlugins,a) // 没有这个是不识别这个属性a的，就是说不能挂在到vue节点上。
 
-let a = {"a":"bbbb"}
 window.Vue = Vue;
 window.vue = new Vue({
   el: '#app', //挂在节点
   router, //路由
   store, //状态管理
-  ceshi:a,
+  test_myplugin:a,
   render: h => h(App) // 渲染函数 。渲染 App 根组件
 })
 
