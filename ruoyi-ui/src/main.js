@@ -78,7 +78,7 @@ Vue.use(Element, {
 
 Vue.config.productionTip = false
 
-new Vue({
+window.vue = new Vue({
   el: '#app',
   router,
   store,
