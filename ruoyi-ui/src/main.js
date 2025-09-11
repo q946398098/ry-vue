@@ -58,9 +58,12 @@ Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
 
-Vue.use(directive)
+
+/*
+import directive from './directive'  // 1. 加载模块，得到 install 函数
+*/
+Vue.use(directive) //该行会调用 directiveindex.js中导出的install
 Vue.use(plugins)
-Vue.use(VueMeta)
 DictData.install()
 
 /**
