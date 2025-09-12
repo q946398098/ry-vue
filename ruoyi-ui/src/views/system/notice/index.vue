@@ -66,30 +66,37 @@
           v-hasPermi="['system:notice:remove']"
         >删除</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="noticeList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="序号" align="center" prop="noticeId" width="100" />
+      <el-table-column type="selection"  width="55" align="center" />
+      <el-table-column label="序号" v-if="columns[0].visible" align="center" prop="noticeId" width="100"/>
       <el-table-column
         label="公告标题"
         align="center"
         prop="noticeTitle"
+        v-if="columns[1].visible"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="公告类型" align="center" prop="noticeType" width="100">
+      <el-table-column
+        v-if="columns[2].visible"
+        label="公告类型" align="center" prop="noticeType" width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_notice_type" :value="scope.row.noticeType"/>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status" width="100">
+      <el-table-column
+        v-if="columns[3].visible"
+        label="状态" align="center" prop="status" width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_notice_status" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="创建者" align="center" prop="createBy" width="100" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="100">
+      <el-table-column
+        v-if="columns[4].visible"
+        label="创建者" align="center" prop="createBy" width="100" />
+      <el-table-column v-if="columns[5].visible" label="创建时间" align="center" prop="createTime" width="100">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
@@ -214,6 +221,14 @@ export default {
         createBy: undefined,
         status: undefined
       },
+      columns: [
+        { key: 0, label: `序号`, visible: true },
+        { key: 1, label: `公告标题`, visible: true },
+        { key: 2, label: `公告类型`, visible: true },
+        { key: 3, label: `状态`, visible: true },
+        { key: 4, label: `创建者`, visible: true },
+        { key: 5, label: `创建时间`, visible: true },
+      ],
       // 表单参数
       form: {},
       // 表单校验

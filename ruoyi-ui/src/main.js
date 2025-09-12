@@ -95,6 +95,14 @@ let a  ={"test_myplugin":"bbbb"}
 Vue.use(myPlugins,a) // 没有这个是不识别这个属性a的，就是说不能挂在到vue节点上。
 
 window.Vue = Vue;
+
+
+
+/*
+当你创建一个 Vue Router 实例（如 new Router({ ... })）
+并将其传递给 Vue 实例时，Vue Router 会自动检测是否需要调用 Vue.use()。
+如果未调用过 Vue.use(Router)，它会在内部自动完成注册。
+*/
 window.vue = new Vue({
   el: '#app', //挂在节点
   router, //路由

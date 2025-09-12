@@ -14,6 +14,18 @@
           <el-dropdown-menu slot="dropdown">
             <template v-for="item in columns">
               <el-dropdown-item :key="item.key">
+
+<!--           $event 的来源
+
+                  1.当绑定到原生 DOM 元素（如 <input>、<button> 等）时，$event 表示浏览器生成的原生事件对象。例如
+                  <input type="text" @input="handleInput($event)" />
+
+                  2. <el-checkbox> 是 Element UI 提供的一个组件。
+                  @change 事件会在复选框的状态发生变化时触发，并传递一个新的布尔值作为参数：
+                  如果复选框被选中，则 $event 的值为 true。
+                  如果复选框未被选中，则 $event 的值为 false。
+
+                  -->
                 <el-checkbox :checked="item.visible" @change="checkboxChange($event, item.label)" :label="item.label" />
               </el-dropdown-item>
             </template>
@@ -50,7 +62,9 @@ export default {
       type: Boolean,
       default: true,
     },
-    /* 显隐列信息 */
+    /* 显隐列信息
+    * 引用类型：如 Array、Object、Function 等，存储的是指向内存地址的引用 . 修改的话直接影响父元素
+    * */
     columns: {
       type: Array,
     },
