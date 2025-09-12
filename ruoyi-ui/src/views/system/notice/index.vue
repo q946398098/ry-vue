@@ -130,7 +130,7 @@
     />
 
     <!-- 添加或修改公告对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="780px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="780px"    :appendToBody="fullscreen" @opened="dialog_open" @closed="dialog_close">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
@@ -196,6 +196,7 @@ export default {
   data() {
     return {
       // 遮罩层
+      fullscreen:true,
       loading: true,
       // 选中数组
       ids: [],
@@ -247,6 +248,12 @@ export default {
   },
   methods: {
     /** 查询公告列表 */
+    dialog_open(){
+      console.log('dialog open')
+    },
+    dialog_close(){
+      console.log('dialog_close')
+    },
     getList() {
       this.loading = true;
       listNotice(this.queryParams).then(response => {
