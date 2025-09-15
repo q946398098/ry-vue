@@ -1,32 +1,6 @@
 'use strict'
 
 
-/*
-*
-* Vue CLI 项目核心配置文件
-用于配置 Vue 项目的构建行为、开发服务器设置、Webpack 配置等
-控制从开发环境到生产环境的编译、打包、部署全流程
-*
-*
-* # Node.js 环境变量
-process.env.NODE_ENV
-*
-*
-* graph TD
-    A[执行命令] --> B{命令类型}
-    B --> |npm run serve| C[设置 NODE_ENV=development]
-    B --> |npm run build| D[设置 NODE_ENV=production]
-    B --> |npm run test| E[设置 NODE_ENV=test]
-    *
-    *
-    * # 新建 .env.staging 文件
-npm run serve --mode staging
-*
-* npm run build -- --modern --env.VUE_APP_API_URL=https://custom.api.com
-*
-*
-*
-* */
 
 //路径解析
 const path = require('path')
@@ -200,3 +174,104 @@ disableHostCheck: true允许任意主机访问
     })
   }
 }
+
+
+/*
+* Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统，包含：
+交互式项目脚手架（@vue/cli）
+零配置原型开发（@vue/cli-service）
+可扩展的插件系统
+*
+* my-project/
+├── node_modules/       # 依赖包
+├── public/             # 静态资源
+├── src/                # 源代码
+│   ├── assets/         # 模块本地依赖
+│   ├── components/     # Vue 组件
+│   ├── App.vue         # 根组件
+│   └── main.js         # 入口文件
+├── .env                # 环境变量文件
+├── babel.config.js     # Babel 配置
+├── package.json        # 项目配置
+└── vue.config.js       # Vue CLI 配置
+*
+*
+*
+// vue.config.js
+module.exports = {
+  // 基础路径
+  publicPath: process.env.NODE_ENV === 'production' ? '/prod/' : '/',
+
+  // 输出目录
+  outputDir: 'dist',
+
+  // 静态资源路径
+  assetsDir: 'static',
+
+  // 开发服务器配置
+  devServer: {
+    port: 8080,
+    proxy: 'http://localhost:3000'
+  }
+}
+
+*
+* .env                # 所有环境
+.env.local          # 所有环境（优先级更高）
+.env.[mode]         # 对应模式（如 .env.development）
+.env.[mode].local   # 对应模式（优先级最高）
+*
+*
+*
+* devServer: {
+  host: '0.0.0.0',
+  port: 8080,
+  open: true,
+  hot: true,
+  proxy: {
+    // 代理单个路径
+    '/api': {
+      target: 'http://localhost:3000',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' }
+    },
+    // 代理所有路径
+    '/': {
+      target: 'http://localhost:3000'
+    }
+  }
+}
+*
+*
+*
+*
+*
+*
+* */
+
+/*
+*
+* Vue CLI 项目核心配置文件
+用于配置 Vue 项目的构建行为、开发服务器设置、Webpack 配置等
+控制从开发环境到生产环境的编译、打包、部署全流程
+*
+*
+* # Node.js 环境变量
+process.env.NODE_ENV
+*
+*
+* graph TD
+    A[执行命令] --> B{命令类型}
+    B --> |npm run serve| C[设置 NODE_ENV=development]
+    B --> |npm run build| D[设置 NODE_ENV=production]
+    B --> |npm run test| E[设置 NODE_ENV=test]
+    *
+    *
+    * # 新建 .env.staging 文件
+npm run serve --mode staging
+*
+* npm run build -- --modern --env.VUE_APP_API_URL=https://custom.api.com
+*
+*
+*
+* */
