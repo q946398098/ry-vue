@@ -13,16 +13,39 @@
 export default {
   data() {
     return {
-      levelList: null
+      levelList: null,
     }
   },
+  computed:{ //触发时机 , 依赖数据变化时自动重新计算 , 返回计算结果
+    test(){
+      return 'xxxxx'
+    }
+    //计算属性：基于 data 中的数据计算得出 。 返回计算结果。
+    /*
+    简写形式：只有 getter
+    test(){
+
+    }
+    完整写法:
+    fullName: {
+     get() {
+        return this.firstName + ' ' + this.lastName
+    },
+    set(newValue) {
+      const names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }  */
+  },
+  // 作用：监听某个数据的变化 。 触发时机：被监听的数据变化时执行。用途：执行异步操作或复杂逻
   watch: {
     // 监听的是 Vue Router 的路由对象 , $route 是 Vue Router 提供的响应式路由对象 , 当路由发生变化时，$route 对象会自动更新
     // 以下操作都会触发 $route 监听器：
-    //this.$router.push('/user/123')
-    //this.$router.replace('/about')
+    // this.$router.push('/user/123')
+    // this.$router.replace('/about')
     // $route(newVal, oldVal) {
-    //// 以下写法完全等价：
+    // 以下写法完全等价：
     // $route(route) { /!* ... *!/ },           // 只关心新值
     // $route(newRoute, oldRoute) { /!* ... *!/ }, // 新值和旧值都关心
     // $route(to, from) { /!* ... *!/ },        // Vue Router 官方推荐写法
@@ -35,7 +58,7 @@ export default {
          数据名(新值, 旧值) {
           doSomething()
          }
-   }*/
+    }*/
     $route :function (route) {
       // if you go to the redirect page, do not update the breadcrumbs
       if (route.path.startsWith('/redirect/')) {
