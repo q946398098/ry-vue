@@ -11,3 +11,10 @@ module.exports = {
     }
   }
 }
+
+/*
+babel.config.js 是 Babel 编译器的配置文件，主要用于：
+将现代 JavaScript (ES6+) 代码转换为浏览器兼容的 JavaScript 语法
+配置代码转换规则和插件
+优化开发体验（如提高热更新速度）
+*/
