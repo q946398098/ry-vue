@@ -24,6 +24,7 @@
 <script>
 import { isExternal } from '@/utils/validate'
 
+//Vue 的模板语法会自动查找组件实例上的属性或方法。 所以上面导入了这个完全不影响！！！！！！！
 export default {
   name: 'SvgIcon',
   props: {
