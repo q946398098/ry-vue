@@ -17,7 +17,26 @@ export default {
     }
   },
   watch: {
-    $route(route) {
+    // 监听的是 Vue Router 的路由对象 , $route 是 Vue Router 提供的响应式路由对象 , 当路由发生变化时，$route 对象会自动更新
+    // 以下操作都会触发 $route 监听器：
+    //this.$router.push('/user/123')
+    //this.$router.replace('/about')
+    // $route(newVal, oldVal) {
+    //// 以下写法完全等价：
+    // $route(route) { /!* ... *!/ },           // 只关心新值
+    // $route(newRoute, oldRoute) { /!* ... *!/ }, // 新值和旧值都关心
+    // $route(to, from) { /!* ... *!/ },        // Vue Router 官方推荐写法
+    // $route(newValue, oldValue) { /!* ... *!/ }  // 通用写法
+    //$route :function (new,old)
+    //您看到的代码是 Vue 的响应式监听器语法，不是普通的方法定义。
+    //
+    /*watch: {
+      // 监听的数据属性名
+         数据名(新值, 旧值) {
+          doSomething()
+         }
+   }*/
+    $route :function (route) {
       // if you go to the redirect page, do not update the breadcrumbs
       if (route.path.startsWith('/redirect/')) {
         return
