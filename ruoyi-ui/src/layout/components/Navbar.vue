@@ -52,7 +52,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import TopNav from '@/components/TopNav'
 import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
+import SizeSelect from '@/components/SizeSelect' //引入
 import Search from '@/components/HeaderSearch'
 import RuoYiGit from '@/components/RuoYi/Git'
 import RuoYiDoc from '@/components/RuoYi/Doc'
@@ -63,7 +63,7 @@ export default {
     TopNav,
     Hamburger,
     Screenfull,
-    SizeSelect,
+    SizeSelect, //注册
     Search,
     RuoYiGit,
     RuoYiDoc

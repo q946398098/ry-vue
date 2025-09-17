@@ -4,7 +4,7 @@ const path = require('path')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
-}g
+}
 
 const CompressionPlugin = require('compression-webpack-plugin')
 
@@ -90,6 +90,10 @@ module.exports = {
       .end() //结束当前规则修改，返回父级配置
 
     // 设置雪碧图加载
+    //这段配置告诉 Webpack：
+    // 找到 src/assets/icons 目录下的所有 .svg 文件。
+    // 使用 svg-sprite-loader 将这些 SVG 文件合并成一个 SVG Sprite。
+    // 每个 SVG 文件会被转换为一个 <symbol> 元素，并分配一个唯一的 id。
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -98,7 +102,7 @@ module.exports = {
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
       .options({
-        symbolId: 'icon-[name]'
+        symbolId: 'icon-[name]' //[name] 是 Webpack 提供的一个占位符，表示文件名（不包含扩展名）
       })
       .end()
 
