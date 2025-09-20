@@ -1,5 +1,13 @@
 import defaultSettings from '@/settings'
 
+
+/*
+import settings from '@/src/settings.js'
+// 或者
+const settings = require('@/src/settings.js')
+
+* */
+
 const { sideTheme, showSettings, topNav, tagsView, fixedHeader, sidebarLogo, dynamicTitle } = defaultSettings
 
 const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''

@@ -169,6 +169,7 @@ let routerPush = Router.prototype.push;
 let routerReplace = Router.prototype.replace;
 // push
 Router.prototype.push = function push(location) {
+  //保证this指向，调用的时候用this.$router调用，保证调用的this是对的
   return routerPush.call(this, location).catch(err => err)
 }
 // replace
