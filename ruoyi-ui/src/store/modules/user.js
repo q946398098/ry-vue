@@ -33,7 +33,7 @@ const user = {
       state.permissions = permissions
     }
   },
-
+  //异步操作
   actions: {
     // 登录
     Login({ commit }, userInfo) {
